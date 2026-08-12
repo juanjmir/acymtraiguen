@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iglesia Alianza Cristiana y Misionera - Traiguén</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0f2c59;      
+      --secondary: #185a9d;    
+      --accent: #38bdf8;       
+      --bg-body: #f8fafc;      
+      --card-bg: #ffffff;
+      --text-dark: #1e293b;    
+      --text-muted: #64748b;
+      --white: #ffffff;
+      --border-color: #e2e8f0;
+      --base-font-size: 16px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    html { font-size: var(--base-font-size); }
+    body { background-color: var(--bg-body); color: var(--text-dark); line-height: 1.6; }
+
+    /* ENCABEZADO ULTRA MINIMALISTA */
+    header { 
+      background-color: var(--white); 
+      position: sticky; 
+      top: 0; 
+      z-index: 1000; 
+      box-shadow: 0 2px 12px rgba(0,0,0,0.03); 
+      border-bottom: 1px solid var(--border-color); 
+    }
+    
+    .header-container { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      padding: 0.75rem 2rem; 
+    }
+    
+    .logo-container { 
+      display: flex; 
+      align-items: center; 
+      gap: 12px; 
+      text-decoration: none; 
+      color: var(--primary); 
+      cursor: pointer; 
+    }
+    
+    .logo-badge { 
+      background: var(--primary); 
+      color: var(--white); 
+      width: 38px; 
+      height: 38px; 
+      border-radius: 8px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      font-weight: 800; 
+      font-size: 0.95rem; 
+      box-shadow: 0 2px 6px rgba(15, 44, 89, 0.15); 
+      flex-shrink: 0;
+    }
+    
+    .logo-text h1 { 
+      font-size: 1rem; 
+      text-transform: uppercase; 
+      letter-spacing: 0.3px; 
+      line-height: 1.1; 
+      font-weight: 800; 
+      color: var(--primary); 
+    }
+    
+    .logo-text span { 
+      font-size: 0.78rem; 
+      color: var(--secondary); 
+      font-weight: 600; 
+      display: block; 
+    }
+
+    /* MENÚ A LA DERECHA */
+    nav ul { 
+      display: flex; 
+      list-style: none; 
+      gap: 24px; 
+      align-items: center; 
+    }
+    
+    nav button.nav-link { 
+      background: none; 
+      border: none; 
+      color: var(--text-dark); 
+      font-size: 0.9rem; 
+      font-weight: 600; 
+      padding: 6px 0; 
+      cursor: pointer; 
+      position: relative;
+      transition: color 0.2s ease;
+    }
+    
+    nav button.nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background-color: var(--secondary);
+      border-radius: 2px;
+      transition: width 0.2s ease-in-out;
+    }
+
+    nav button.nav-link:hover { color: var(--secondary); }
+    nav button.nav-link:hover::after, nav button.nav-link.active::after { width: 100%; }
+    nav button.nav-link.active { color: var(--primary); font-weight: 700; }
+
+    .btn-intranet-pill {
+      background-color: var(--primary) !important;
+      color: var(--white) !important;
+      padding: 6px 16px !important;
+      border-radius: 20px !important;
+      font-weight: 700 !important;
+      font-size: 0.85rem !important;
+      transition: background-color 0.2s !important;
+    }
+    .btn-intranet-pill::after { display: none !important; }
+    .btn-intranet-pill:hover { background-color: var(--secondary) !important; }
+
+    /* ESTRUCTURA PRINCIPAL */
+    main { max-width: 1200px; width: 100%; margin: 25px auto; padding: 0 20px; min-height: 75vh; }
+    .page-section { display: none; }
+    .page-section.active { display: block; }
+
+    .section-header { margin-bottom: 25px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
+    .section-header h2 { font-size: 1.6rem; color: var(--primary); font-weight: 700; display: flex; align-items: center; gap: 10px; }
+
+    /* PORTADA FOTOGRÁFICA HD */
+    .hero-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(15, 44, 89, 0.06);
+      border: 1px solid var(--border-color);
+      margin-bottom: 25px;
+    }
+    .hero-image-container {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      overflow: hidden;
+    }
+    .hero-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(15, 44, 89, 0.88) 0%, rgba(15, 44, 89, 0.1) 65%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 35px;
+      color: var(--white);
+    }
+    .hero-overlay h2 { font-size: 2.1rem; font-weight: 800; margin-bottom: 6px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+    .hero-overlay p { font-size: 1.05rem; font-weight: 300; opacity: 0.95; max-width: 650px; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+
+    .hero-actions {
+      padding: 18px 30px;
+      background: var(--card-bg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .btn-hero {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-hero-primary { background-color: var(--primary); color: var(--white); }
+    .btn-hero-primary:hover { background-color: var(--secondary); }
+    .btn-hero-secondary { background-color: #edf2f7; color: var(--primary); }
+    .btn-hero-secondary:hover { background-color: #e2e8f0; }
+
+    /* BANNER PRÓXIMO CULTO */
+    .next-service-banner {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 20px 25px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+      flex-wrap: wrap;
+    }
+    .next-service-info { display: flex; align-items: center; gap: 16px; }
+    .next-service-icon { background: rgba(15, 44, 89, 0.08); color: var(--primary); width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .next-service-text h3 { color: var(--primary); font-size: 1.1rem; font-weight: 700; }
+    .next-service-text p { color: var(--text-muted); font-size: 0.9rem; }
+
+    /* BANNER CIELO / ESPERANZA */
+    .sky-banner {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: url('https://images.unsplash.com/photo-1534088568595-a066f410bcda?auto=format&fit=crop&w=1200&q=80') center/cover;
+      padding: 40px 30px;
+      color: var(--white);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+      margin-bottom: 25px;
+    }
+    .sky-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(15, 44, 89, 0.85), rgba(24, 90, 157, 0.75));
+    }
+    .sky-banner-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .sky-banner-content h3 { font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; }
+    .sky-banner-content p { font-size: 1rem; opacity: 0.95; font-weight: 300; margin-bottom: 20px; }
+
+    .faith-tags { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+    .faith-tag {
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* NOTICIAS LIMPIAS */
+    .news-list { display: flex; flex-direction: column; gap: 20px; }
+    .news-item { background: var(--card-bg); border-radius: 14px; padding: 18px; border: 1px solid var(--border-color); display: flex; gap: 20px; align-items: flex-start; }
+    .news-img { width: 240px; height: 150px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+    .news-content { flex: 1; }
+    .news-date { font-size: 0.8rem; color: var(--secondary); font-weight: bold; margin-bottom: 4px; display: block; }
+    .news-title { font-size: 1.25rem; color: var(--primary); line-height: 1.3; margin-bottom: 6px; font-weight: 700; }
+    .news-text { font-size: 0.95rem; color: var(--text-dark); line-height: 1.5; margin-bottom: 10px; }
+
+    /* GALERÍA DE FOTOS */
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; }
+    .gallery-card { background: var(--card-bg); border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color); cursor: pointer; transition: transform 0.2s; }
+    .gallery-card:hover { transform: translateY(-3px); }
+    .gallery-img-wrapper { position: relative; width: 100%; height: 170px; overflow: hidden; background: #eee; }
+    .gallery-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+    .gallery-badge-date { position: absolute; bottom: 6px; right: 6px; background: rgba(15, 44, 89, 0.88); color: #fff; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+    .gallery-caption { padding: 12px; font-size: 0.9rem; color: var(--text-dark); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+    /* ESTILOS DE LA INTRANET */
+    .admin-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      border: 1px solid var(--border-color);
+      padding: 30px;
+      max-width: 700px;
+      margin: 0 auto;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    }
+    .admin-tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+    .admin-tab-btn { background: none; border: none; padding: 8px 16px; font-weight: 600; cursor: pointer; color: var(--text-muted); border-radius: 6px; }
+    .admin-tab-btn.active { background: rgba(15, 44, 89, 0.08); color: var(--primary); }
+    
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 6px; color: var(--primary); }
+    .form-control { width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.95rem; }
+    .form-control:focus { outline: none; border-color: var(--secondary); }
+    
+    .file-dropzone {
+      border: 2px dashed var(--border-color);
+      padding: 25px;
+      text-align: center;
+      border-radius: 10px;
+      background: #fafafa;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .file-dropzone:hover { border-color: var(--secondary); }
+    .file-dropzone i { font-size: 2rem; color: var(--secondary); margin-bottom: 8px; }
+    
+    .img-preview { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-top: 10px; display: none; }
+
+    .btn-submit { background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 700; cursor: pointer; width: 100%; font-size: 0.95rem; }
+    .btn-submit:hover { background: var(--secondary); }
+
+    /* MODAL AMPLIACIÓN */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+    .modal-overlay.active { display: flex; }
+    .modal-content { background: var(--card-bg); border-radius: 12px; max-width: 800px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; display: flex; flex-direction: column; }
+    .modal-close { position: absolute; top: 12px; right: 15px; background: rgba(0,0,0,0.6); color: white; border: none; font-size: 1.2rem; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; }
+    .modal-img { width: 100%; max-height: 480px; object-fit: contain; background: #000; }
+    .modal-body { padding: 18px; }
+
+    /* INFORMACIÓN GENERAL */
+    .info-block { margin-bottom: 18px; padding: 20px; background: var(--card-bg); border-radius: 10px; border-left: 4px solid var(--primary); border-top: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
+    .info-block h3 { color: var(--primary); font-size: 1.15rem; margin-bottom: 6px; font-weight: 700; }
+
+    /* PIE DE PÁGINA */
+    footer { text-align: center; padding: 25px; border-top: 1px solid var(--border-color); background: #fff; color: var(--text-muted); font-size: 0.85rem; margin-top: 40px; }
+
+    @media (max-width: 850px) {
+      .header-container { flex-direction: column; gap: 12px; text-align: center; }
+      nav ul { gap: 14px; flex-wrap: wrap; justify-content: center; }
+      .hero-image-container { height: 260px; }
+      .hero-overlay { padding: 20px; }
+      .hero-overlay h2 { font-size: 1.5rem; }
+      .news-item { flex-direction: column; }
+      .news-img { width: 100%; height: 160px; }
+      .next-service-banner { flex-direction: column; text-align: center; justify-content: center; }
+      .next-service-info { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ENCABEZADO MINIMALISTA -->
+  <header>
+    <div class="header-container">
+      <div class="logo-container" onclick="navigateTo('inicio')">
+        <div class="logo-badge">ACYM</div>
+        <div class="logo-text">
+          <h1>Iglesia Alianza Cristiana y Misionera</h1>
+          <span>Templo Traiguén</span>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li><button id="nav-inicio" class="nav-link active" onclick="navigateTo('inicio')">Inicio</button></li>
+          <li><button id="nav-noticias" class="nav-link" onclick="navigateTo('noticias')">Noticias</button></li>
+          <li><button id="nav-galeria" class="nav-link" onclick="navigateTo('galeria')">Galería</button></li>
+          <li><button id="nav-info" class="nav-link" onclick="navigateTo('info')">Información</button></li>
+          <li><button id="nav-intranet" class="nav-link btn-intranet-pill" onclick="navigateTo('intranet')"><i class="fa-solid fa-lock"></i> Intranet</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- PORTADA LIMPIA -->
+    <section id="page-inicio" class="page-section active">
+      
+      <!-- HERO FOTOGRÁFICO PRINCIPAL EN TONOS AZULES Y LUZ CELESTIAL -->
+      <div class="hero-card">
+        <div class="hero-image-container">
+          <img src="https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?auto=format&fit=crop&w=1200&q=80" alt="Cielo Claro e Iluminado">
+          <div class="hero-overlay">
+            <h2>Bienvenidos a Nuestra Casa de Fe</h2>
+            <p>Un espacio de encuentro, oración y fraternidad para las familias de Traiguén.</p>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <span style="color: var(--text-muted); font-size: 0.9rem;"><i class="fa-solid fa-church"></i> Alianza Cristiana y Misionera de Chile</span>
+          <div style="display: flex; gap: 10px;">
+            <button class="btn-hero btn-hero-primary" onclick="navigateTo('info')">
+              <i class="fa-solid fa-clock"></i> Horarios de Culto
+            </button>
+            <button class="btn-hero btn-hero-secondary" onclick="navigateTo('noticias')">
+              <i class="fa-solid fa-newspaper"></i> Noticias
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BANNER PRÓXIMO CULTO DESTACADO -->
+      <div class="next-service-banner">
+        <div class="next-service-info">
+          <div class="next-service-icon">
+            <i class="fa-solid fa-calendar-day"></i>
+          </div>
+          <div class="next-service-text">
+            <h3>Próximo Culto Dominical</h3>
+            <p><strong>Este Domingo a las 11:00 hrs.</strong> — Templo Central de Traiguén.</p>
+          </div>
+        </div>
+        <button class="btn-hero btn-hero-secondary" onclick="navigateTo('info')">
+          <i class="fa-solid fa-map-pin"></i> Cómo Llegar
+        </button>
+      </div>
+
+      <!-- BANNER CIELO / ESPERANZA -->
+      <div class="sky-banner">
+        <div class="sky-banner-overlay"></div>
+        <div class="sky-banner-content">
+          <h3>Nuestra Fe y Esperanza</h3>
+          <p>Proclamamos el mensaje del Evangelio para la edificación y bendición de nuestra comunidad.</p>
+          <div class="faith-tags">
+            <div class="faith-tag"><i class="fa-solid fa-cross"></i> Cristo Salva</div>
+            <div class="faith-tag"><i class="fa-solid fa-water"></i> Cristo Santifica</div>
+            <div class="faith-tag"><i class="fa-solid fa-hand-holding-medical"></i> Cristo Sana</div>
+            <div class="faith-tag"><i class="fa-solid fa-crown"></i> Cristo Viene</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- NOTICIAS -->
+    <section id="page-noticias" class="page-section">
+      <div class="section-header">
+        <h2><i class="fa-solid fa-newspaper"></i> Noticias e Informaciones</h2>
+      </div>
+      <div id="news-list-container" class="news-list"></div>
+    </section>
+
+    <!-- GALERÍA DE FOTOS -->
+    <section id="page-galeria" class="page-section">
+      <div class="section-header">
+        <h2><i class="fa-solid fa-camera"></i> Galería de Fotos</h2>
+      </div>
+      <div id="gallery-grid-container" class="gallery-grid"></div>
+    </section>
+
+    <!-- INFORMACIÓN GENERAL -->
+    <section id="page-info" class="page-section">
+      <div class="section-header">
+        <h2><i class="fa-solid fa-circle-info"></i> Información General</h2>
+      </div>
+      <div class="info-block">
+        <h3><i class="fa-solid fa-user-tie"></i> Pastorado y Liderazgo</h3>
+        <p><strong>Pastor Principal:</strong> Reverendo Pastor Templo Traiguén</p>
+        <p><strong>Pertenencia:</strong> Distrito Araucanía – Alianza Cristiana y Misionera Chile</p>
+      </div>
+      <div class="info-block">
+        <h3><i class="fa-solid fa-clock"></i> Horarios de Cultos</h3>
+        <p><strong>Culto Dominical:</strong> Todos los Domingos a las 11:00 hrs.</p>
+        <p><strong>Reunión de Oración:</strong> Miércoles a las 19:30 hrs.</p>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE INTRANET / MÓDULO DE SUBIDA -->
+    <section id="page-intranet" class="page-section">
+      <div class="section-header">
+        <h2><i class="fa-solid fa-lock"></i> Panel de Administración - Intranet</h2>
+      </div>
+
+      <div class="admin-card">
+        <div class="admin-tabs">
+          <button class="admin-tab-btn active" id="tab-btn-foto" onclick="switchAdminTab('foto')"><i class="fa-solid fa-camera"></i> Subir Foto a Galería</button>
+          <button class="admin-tab-btn" id="tab-btn-noticia" onclick="switchAdminTab('noticia')"><i class="fa-solid fa-newspaper"></i> Publicar Noticia</button>
+        </div>
+
+        <!-- FORMULARIO SUBIR FOTO A GALERÍA -->
+        <form id="form-upload-photo" onsubmit="handlePhotoSubmit(event)">
+          <div class="form-group">
+            <label>Descripción o Pie de Foto</label>
+            <input type="text" id="photo-desc" class="form-control" placeholder="Ej: Culto Especial de Jóvenes" required>
+          </div>
+          <div class="form-group">
+            <label>Seleccionar Imagen desde el Equipo</label>
+            <div class="file-dropzone" onclick="document.getElementById('photo-file').click()">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <p>Haz clic aquí para buscar una fotografía</p>
+              <input type="file" id="photo-file" accept="image/*" style="display: none;" onchange="previewFile(this, 'photo-preview')" required>
+            </div>
+            <img id="photo-preview" class="img-preview" alt="Vista previa">
+          </div>
+          <button type="submit" class="btn-submit"><i class="fa-solid fa-upload"></i> Publicar en Galería</button>
+        </form>
+
+        <!-- FORMULARIO PUBLICAR NOTICIA -->
+        <form id="form-upload-news" style="display: none;" onsubmit="handleNewsSubmit(event)">
+          <div class="form-group">
+            <label>Título de la Noticia</label>
+            <input type="text" id="news-title" class="form-control" placeholder="Ej: Aniversario Templo Traiguén" required>
+          </div>
+          <div class="form-group">
+            <label>Contenido / Detalle</label>
+            <textarea id="news-content" class="form-control" rows="4" placeholder="Escribe la noticia aquí..." required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Imagen Destacada (Opcional)</label>
+            <div class="file-dropzone" onclick="document.getElementById('news-file').click()">
+              <i class="fa-solid fa-image"></i>
+              <p>Cargar imagen para la noticia</p>
+              <input type="file" id="news-file" accept="image/*" style="display: none;" onchange="previewFile(this, 'news-preview')">
+            </div>
+            <img id="news-preview" class="img-preview" alt="Vista previa noticia">
+          </div>
+          <button type="submit" class="btn-submit"><i class="fa-solid fa-paper-plane"></i> Publicar Noticia</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p><i class="fa-solid fa-location-dot"></i> Traiguén, Región de La Araucanía — Iglesia Alianza Cristiana y Misionera</p>
+  </footer>
+
+  <!-- MODAL DE IMÁGENES -->
+  <div id="image-modal" class="modal-overlay" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+      <img id="modal-img" class="modal-img" src="" alt="Fotografía ampliada">
+      <div class="modal-body">
+        <span id="modal-date" style="color: var(--secondary); font-weight: bold; display: block; margin-bottom: 4px; font-size: 0.85rem;"></span>
+        <p id="modal-desc" style="font-size: 1rem; color: var(--text-dark);"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const initialNews = [
+      { id: 1, title: "Culto Especial de Aniversario del Templo de Traiguén", date: "15 de Marzo, 2026", img: "https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?auto=format&fit=crop&w=600&q=80", content: "Agradecemos a Dios por un nuevo año de bendición en nuestra comuna." }
+    ];
+
+    const initialPhotos = [
+      { url: "https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?auto=format&fit=crop&w=800&q=80", date: "15/03/2026", desc: "Culto especial de Aniversario en el Templo Central." }
+    ];
+
+    let photoDataUrl = "";
+    let newsDataUrl = "";
+
+    function navigateTo(pageId) {
+      document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+      document.getElementById(`page-${pageId}`).classList.add('active');
+      const navBtn = document.getElementById(`nav-${pageId}`);
+      if(navBtn) navBtn.classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    function switchAdminTab(tab) {
+      document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
+      if(tab === 'foto') {
+        document.getElementById('tab-btn-foto').classList.add('active');
+        document.getElementById('form-upload-photo').style.display = 'block';
+        document.getElementById('form-upload-news').style.display = 'none';
+      } else {
+        document.getElementById('tab-btn-noticia').classList.add('active');
+        document.getElementById('form-upload-photo').style.display = 'none';
+        document.getElementById('form-upload-news').style.display = 'block';
+      }
+    }
+
+    function previewFile(input, previewId) {
+      const file = input.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.getElementById(previewId);
+          img.src = e.target.result;
+          img.style.display = 'block';
+          if(previewId === 'photo-preview') photoDataUrl = e.target.result;
+          if(previewId === 'news-preview') newsDataUrl = e.target.result;
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function handlePhotoSubmit(e) {
+      e.preventDefault();
+      const desc = document.getElementById('photo-desc').value;
+      const today = new Date().toLocaleDateString('es-CL');
+
+      if (!photoDataUrl) return;
+
+      initialPhotos.unshift({
+        url: photoDataUrl,
+        date: today,
+        desc: desc
+      });
+
+      renderGallery();
+      alert("¡Fotografía subida con éxito!");
+      document.getElementById('form-upload-photo').reset();
+      document.getElementById('photo-preview').style.display = 'none';
+      photoDataUrl = "";
+      navigateTo('galeria');
+    }
+
+    function handleNewsSubmit(e) {
+      e.preventDefault();
+      const title = document.getElementById('news-title').value;
+      const content = document.getElementById('news-content').value;
+      const today = new Date().toLocaleDateString('es-CL');
+      const fallbackImg = "https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?auto=format&fit=crop&w=600&q=80";
+
+      initialNews.unshift({
+        id: Date.now(),
+        title: title,
+        date: today,
+        img: newsDataUrl || fallbackImg,
+        content: content
+      });
+
+      renderNews();
+      alert("¡Noticia publicada con éxito!");
+      document.getElementById('form-upload-news').reset();
+      document.getElementById('news-preview').style.display = 'none';
+      newsDataUrl = "";
+      navigateTo('noticias');
+    }
+
+    function renderNews() {
+      const container = document.getElementById('news-list-container');
+      container.innerHTML = initialNews.map(n => `
+        <article class="news-item">
+          <img src="${n.img}" class="news-img" alt="Foto Noticia">
+          <div class="news-content">
+            <span class="news-date">${n.date}</span>
+            <h3 class="news-title">${n.title}</h3>
+            <p class="news-text">${n.content}</p>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function renderGallery() {
+      const container = document.getElementById('gallery-grid-container');
+      container.innerHTML = initialPhotos.map((p, index) => `
+        <div class="gallery-card" onclick="openModal(${index})">
+          <div class="gallery-img-wrapper">
+            <img src="${p.url}" alt="Foto Galería">
+            <span class="gallery-badge-date">${p.date}</span>
+          </div>
+          <p class="gallery-caption">${p.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    function openModal(index) {
+      const item = initialPhotos[index];
+      if(!item) return;
+      document.getElementById('modal-img').src = item.url;
+      document.getElementById('modal-date').innerText = "Fecha: " + item.date;
+      document.getElementById('modal-desc').innerText = item.desc;
+      document.getElementById('image-modal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('image-modal').classList.remove('active');
+    }
+
+    renderNews();
+    renderGallery();
+  </script>
+</body>
+</html>
